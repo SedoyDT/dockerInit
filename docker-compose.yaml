@@ -1,0 +1,25 @@
+version: '3.1'
+
+#networks:
+#  amd_net:
+#    ipam:
+#      config:
+#        - subnet: 192.168.51.0/24
+services:
+  amd-apache:
+    build:
+      dockerfile: Dockerfile
+      context: ./images/apache
+    ports:
+      - "8080:80"
+    volumes:
+      - './app/public/:/var/www/html/'
+      - './configs/apache/:/etc/apache2/'
+  mysql:
+    build:
+      dockerfile: Dockerfile
+      context: ./images/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - '3306:3307'
